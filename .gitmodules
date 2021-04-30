@@ -1,0 +1,3 @@
+[submodule "source\\pihome"]
+	path = source\\pihome
+	url = http://github.com/pihome-shc/pihome
