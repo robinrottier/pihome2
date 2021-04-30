@@ -63,5 +63,5 @@ RUN apk add \
 ENV TIMEZONE Europe/London
 RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo "${TIMEZONE}" > /etc/timezone
 
-# add pihmome www
+# add pihmome apache www files
 COPY www /var/www/
