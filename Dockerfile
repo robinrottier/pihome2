@@ -1,0 +1,67 @@
+FROM yobasystems/alpine-mariadb:10.5.8
+
+LABEL maintainer="Robin Rottier"
+LABEL repos="https://github.com/robinrottier/pihome2"
+
+# Timezone
+# ENV TIMEZONE Europe/London
+
+# myqsl - root password as per pihome
+ENV MYSQL_ROOT_PASSWORD passw0rd
+# mysql - pihome database and admin
+ENV MYSQL_DATABASE  pihome
+ENV MYSQL_USER      pihomedbadmin
+ENV MYSQL_PASSWORD  pihome2018
+
+EXPOSE 3306
+
+# add some utilites
+RUN apk add \
+    curl \
+    wget \
+    tzdata \
+    git
+
+# add apache2
+RUN apk add \
+    apache2 \
+    apache2-doc \
+    apache2-utils
+
+EXPOSE 80
+
+# add php
+RUN apk add \
+    php7 \
+    php7-apache2 \
+    php7-cli \
+    php7-gd \
+    php7-curl \
+    php7-pdo_mysql \
+    php7-opcache \
+    php7-mysqli \
+    php7-zip \
+    php7-mbstring \
+##    php7-phar \
+##    php7-zlib \
+##    php7-zip \
+##    php7-bz2 \
+##    php7-ctype \
+##    php7-json \
+##    php7-mcrypt \
+##    php7-xml \
+##    php7-dom \
+##    php7-iconv \
+##    php7-xdebug \
+##    php7-intl \
+##    php7-apcu \
+##    php7-tokenizer \
+##    php7-simplexml \
+    php7-session 
+
+# Timezone
+ENV TIMEZONE Europe/London
+RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo "${TIMEZONE}" > /etc/timezone
+
+# add pihmome www
+COPY www /var/www/
