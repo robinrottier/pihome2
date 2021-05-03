@@ -3,6 +3,6 @@ setlocal
 
 cd /d %~dp0
 
-set image=pihome
+set image=pihome2
 
-docker build -t %image% .
+docker build -t %image% . 

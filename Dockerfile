@@ -67,6 +67,6 @@ RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo "${TIMEZONE}" > /e
 COPY www /var/www/
 
 # change entry point script included in FROM
-RUN mv /script/run.sh /script/base-run.sh
-COPY run.sh /script
-RUN chmod +x /script/run.sh
+RUN mv /scripts/run.sh /scripts/base_run.sh
+COPY scripts /scripts/
+RUN chmod +x /scripts/*

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo Modified run.sh 
+echo - copied from https://github.com/yobasystems/alpine-mariadb/blob/master/alpine-mariadb-amd64/files/run.sh
+
 # execute any pre-init scripts
 for i in /scripts/pre-init.d/*sh
 do
@@ -64,7 +67,9 @@ EOF
 
 	 if [ "$MYSQL_USER" != "" ]; then
 		echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
-		echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+		echo "GRANT ALL ON *.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+		echo "GRANT ALL ON *.* to '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+		echo "SET PASSWORD FOR '$MYSQL_USER'@'localhost'=PASSWORD('${MYSQL_PASSWORD}');" >> $tfile
 	    fi
 	fi
 
