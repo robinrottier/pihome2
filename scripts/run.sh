@@ -101,4 +101,15 @@ do
 	fi
 done
 
-exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0 $@
+# now run mysql in background
+/usr/bin/mysqld_safe --user=mysql --console --skip-name-resolve --skip-networking=0 &
+mysqlpid=$!
+sleep 5
+
+# run pihome setup script
+cd /var/www/pihome/MySQL_Database
+php setup_db.php
+
+# and run ap[ache
+exec httpd -D FOREGROUND
+

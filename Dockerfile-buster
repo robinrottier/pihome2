@@ -1,0 +1,16 @@
+FROM php:7.4-apache-buster
+
+LABEL maintainer="Robin Rottier"
+LABEL repos="https://github.com/robinrottier/pihome2"
+
+RUN apt-get update
+RUN apt-get install -y curl wget iputils-ping git
+
+# add pihmome apache www files
+COPY www /var/www/
+
+# add apache config file 
+WORKDIR /etc/apache2
+COPY apache2 /etc/apache2/
+
+## RUN apt-get install -y mariadb mariadb-client mariadb-server-utils
